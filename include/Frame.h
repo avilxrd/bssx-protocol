@@ -6,6 +6,7 @@
 #include <cstddef>
 
 #define MAX_PAYLOAD 64
+#define SOF 0x7E
 
 #define ui8 uint8_t
 #define ui16 uint16_t
