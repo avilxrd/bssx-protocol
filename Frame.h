@@ -2,8 +2,7 @@
 #define FRAME_H
 
 //#include <Arduino.h>
-#include <cstdint>
-#include <cstddef>
+#include <Arduino.h>
 
 #define MAX_PAYLOAD 64
 #define SOF 0x7E

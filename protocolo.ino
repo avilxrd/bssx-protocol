@@ -1,7 +1,7 @@
 #include <SoftwareSerial.h>
 #include "Protocolo.h"
 
-SoftwareSerial sw_serial(10, 11); //rx e tx
+SoftwareSerial sw_serial(10, 11);
 Protocolo protocolo(sw_serial);
 
 void setup()
@@ -16,8 +16,8 @@ void setup()
 
 void loop()
 {
-    Serial.println("enviando dados")
+    Serial.println("enviando dados");
     if (protocolo.sendFloat(FLOAT_EX)) { Serial.println("sucesso (ack recebido)"); }
-    else { Serial.println("falha no envio (timeout)") }
+    else { Serial.println("falha no envio (timeout)"); }
     delay(1000);
 }
