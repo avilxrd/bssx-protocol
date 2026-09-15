@@ -13,6 +13,21 @@ O protocolo desenvolvido é orientado à frames de tamanho variável, utilizando
 | PAYLOAD | Dados que estão sendo enviados | (n) bytes |
 | CHECKSUM | Checksum para evitar redundância | 2 bytes |
 
+## API Pública
+Os métodos públicos que podem ser utilizados pelo usuário são os seguintes.
+
+### update
+```c++
+    void begin(long baudRate);
+
+    bool sendByte(ui8 value);
+    bool sendWord(ui16 value);
+    bool sendFloat(float value);
+    bool sendData(const ui8 *data, ui16 size);
+
+    bool update(Frame &frame);
+```
+
 ## Implementação
 Em código, os campos descritos acima foram implementados da seguinte maneira.
 
