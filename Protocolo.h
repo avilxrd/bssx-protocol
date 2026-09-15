@@ -7,7 +7,8 @@
 
 #define DEFAULT_TIMEOUT 1000
 
-#define uint32_t ui32
+typedef uint8_t ui8;
+typedef uint32_t ui32;
 
 class Protocolo
 {
@@ -33,12 +34,12 @@ public:
     Protocolo(SoftwareSerial &serial);
     void begin(long baudRate);
 
-    void sendByte(ui8 value);
-    void sendWord(ui16 value);
-    void sendFloat(ui32 value);
-    void sendData(ui8 *data, ui16 size);
+    bool sendByte(ui8 value);
+    bool sendWord(ui16 value);
+    bool sendFloat(float value);
+    bool sendData(const ui8 *data, ui16 size);
 
     bool update(Frame &frame);
-}
+};
 
 #endif

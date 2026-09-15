@@ -21,11 +21,11 @@ bool Protocolo::sendPackage(ui8 type, const ui8 *payload, ui16 len)
     while (attempts < MAX_RETRIES)
     {
         serial.write((ui8*)&tx_frame.header, sizeof(Header));
-        if (len > 0){ serial.write(tx_frame, payload, len); }
+        if (len > 0){ serial.write(payload, len); }
         serial.write((ui8*)&tx_frame.checksum, sizeof(ui16));
         
         Frame rx_answer;
-        if (sendPackage(rx_answer, TIMEOUT))
+        if (readFrame(rx_answer, TIMEOUT))
         {
             if (rx_answer.header.type == ACK_T && rx_answer.header.seq == seq_tx)
             {
@@ -83,7 +83,7 @@ bool Protocolo::readFrame(Frame &frame, ui32 timeout)
                 break;
 
             case READING_HEADER:
-                ((ui8*))&frame.header[index++] = r;
+                ((ui8*)&frame.header)[index++] = r;
                 if (index >= sizeof(Header))
                 {
                     index = 0;
@@ -113,7 +113,7 @@ bool Protocolo::readFrame(Frame &frame, ui32 timeout)
     return false; //timeout
 }
 
-bool Protocolo::update(Frame frame)
+bool Protocolo::update(Frame &frame)
 {
     if (serial.available())
     {
@@ -121,7 +121,7 @@ bool Protocolo::update(Frame frame)
         {
             if (frame.header.type == ACK_T || frame.header.type == NACK_T) { return false; }
             sendAck(frame.header.seq);
-            if (frame.header.seq == seq_rx_expected);
+            if (frame.header.seq == seq_rx_expected)
             {
                 seq_rx_expected++;
                 return true;
